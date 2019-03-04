@@ -1,17 +1,17 @@
 let cacheName = 'Time Table';
 let cacheAssets = [
-    './',
-    './images/icons/icon-72x72.png',
-    './images/icons/icon-96x96.png',
-    './images/icons/icon-128x128.png',
-    './images/icons/icon-144x144.png',
-    './images/icons/icon-152x152.png',
-    './images/icons/icon-192x192.png',
-    './images/icons/icon-384x384.png',
-    './images/icons/icon-512x512.png',
-    './icon-96x96.png',
-    './index.html',
-    './manifest.json'
+    './ttexpo/',
+    './ttexpo/images/icons/icon-72x72.png',
+    './ttexpo/images/icons/icon-96x96.png',
+    './ttexpo/images/icons/icon-128x128.png',
+    './ttexpo/images/icons/icon-144x144.png',
+    './ttexpo/images/icons/icon-152x152.png',
+    './ttexpo/images/icons/icon-192x192.png',
+    './ttexpo/images/icons/icon-384x384.png',
+    './ttexpo/images/icons/icon-512x512.png',
+    './ttexpo/icon-96x96.png',
+    './ttexpo/index.html',
+    './ttexpo/manifest.json'
 ];
 
 self.addEventListener('install',e=>{
@@ -44,7 +44,8 @@ self.addEventListener('activate',e=>{
 self.addEventListener('fetch',function(e){
     e.respondWith(
         caches.match(e.request).then(function(response){
-            return response || fetch(e.request);
+            if(response) return response;
+            else return fetch(e.request);
         })
     );
 });

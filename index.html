@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="application-name" content="Time table" />
+    <link rel="canonical" href="https://carrymail.github.io/ttexpo/" />
     <link rel="shortcut icon" href="./icon-96x96.png" type="image/png">
     <title>Time Table</title>
     <link rel="manifest" href="manifest.json">
@@ -484,7 +485,7 @@
             document.onclick = warn_exec;
         }
         if('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('../sw.js');
+            navigator.serviceWorker.register('./ttexpo/sw.js',{scope: './ttexpo/'});
         }
 
         window.addEventListener('beforeinstallprompt',e=>{
