@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="Time table" />
+    <link rel="shortcut icon" href="./icon-96x96.png" type="image/png">
+    <title>Time Table</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        * 
+        {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+        :root {
+            --commonTableHeight: 10vh;
+        }
+        html,body 
+        {
+            position: relative;
+            height: 100vh;
+            width: 100vw;
+            font-size: 10px;
+        }
+        .homeButtons
+        {
+            width: 100vw;
+            height: 33.2vh;
+            font-size: 3rem;
+        }
+        .wholeButtons
+        {
+            width: 100vw;
+            height: 18vh;
+            font-size: 3rem;
+        }
+        .back
+        {
+            width: 100vw;
+            height: 10vh;
+            font-size: 3rem;
+        }
+        #time_table_container
+        {
+            width: 100vw;
+            height: 90vh;
+            border: 1px solid #000;
+            box-sizing: border-box;
+            border-collapse: collapse;
+
+        }
+        .table_row
+        {
+            width: 100vw;
+            height: var(--commonTableHeight);
+        }
+        .table_column
+        {
+            width: 60vw;
+            height: var(--commonTableHeight);
+            border: 1px solid #000;
+        }
+        .back-inside
+        {
+            width: 100vw;
+            height: 10vh;
+            font-size: 2rem;
+        }
+        .time_value_container
+        {
+            width: 60vw;
+            height: var(--commonTableHeight);
+            font-size: 3rem;
+        }
+        .subject_value_container
+        {
+            width: 40vw;
+            height: var(--commonTableHeight);
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        .detailButtons 
+        {
+            width: 100vw;
+            height: 30vh;
+            font-size: 4rem;
+        }
+        #home
+        {
+            display: block;
+            position: absolute;
+        }
+        #whole
+        {
+            position: absolute;
+            display: none;
+        }
+        #today
+        {
+            position: absolute;
+            display: none;
+        }
+        #details
+        {
+            position: absolute;
+            display: none;
+        }
+        #warn
+        {
+            display: none;
+            height: 100vh;
+            weight: 100vw;
+            font-size: 3rem;
+            position: absolute;
+        }
+        #warnTab
+        {
+            width: 100vw;
+            height: 90vh;
+            font-size: 3rem;
+        }
+        #backTab
+        {
+            width: 100vw;
+            height: 10vh;
+            font-size: 3rem;
+        }
+        #install {
+            position: absolute;
+            width: 100vw;
+            height: 5vh;
+            display: none;
+            left:0;
+            bottom: 0;
+            background-color: #006400;
+            color: #ffffff;
+            font-size: 2rem;
+            z-index: 10;
+             }
+    </style>
+</head>
+<body>
+    <input type="button" id="install" value="Install">
+    <div id="home">
+        <input type="button" class="homeButtons" id="pressWhole" value="WHOLE">
+        <input type="button" class="homeButtons" id="pressToday" value="TODAY">
+        <input type="button" class="homeButtons" id="pressDetails" value="CURRENT">
+    </div>
+    <div id="whole">
+        <input type="button" class="wholeButtons" id="mon" value="Monday">
+        <input type="button" class="wholeButtons" id="tue" value="Tuesday">
+        <input type="button" class="wholeButtons" id="wed" value="Wednesday">
+        <input type="button" class="wholeButtons" id="thu" value="Thursday">
+        <input type="button" class="wholeButtons" id="fri" value="Friday">
+        <input type="button" class="back" id="back" value="Home">
+    </div>
+    <div id="today">
+        <table id="time_table_container">
+            <tr class="table_row"> 
+                <td class="table_column">
+                    <input type="button" class="time_value_container" value="09:00     10:00">
+                </td>
+                <td class="table_column">
+                    <input type="button" class="subject_value_container" id="subject_value_0" value="">
+                </td>
+            </tr>
+            <tr class="table_row">
+                <td class="table_column">
+                    <input type="button" class="time_value_container" value="10:00     10:55">
+                </td>
+                <td class="table_column">
+                    <input type="button" class="subject_value_container" id="subject_value_1" value="">
+                </td>
+            </tr>
+            <tr class="table_row">
+                <td class="table_column">
+                    <input type="button" class="time_value_container" value="10:55     11:05">
+                </td>
+                <td class="table_column">
+                    <input type="button" class="subject_value_container" id="subject_value_2" value="">
+                </td>
+            </tr>
+            <tr class="table_row">
+                <td class="table_column">
+                    <input type="button" class="time_value_container" value="11:05     12:00">
+                </td>
+                <td class="table_column">
+                    <input type="button" class="subject_value_container" id="subject_value_3" value="">
+                </td>
+            </tr>
+            <tr class="table_row">
+                <td class="table_column">
+                    <input type="button" class="time_value_container" value="12:00     12:55">
+                </td>
+                <td class="table_column">
+                    <input type="button" class="subject_value_container" id="subject_value_4" value="">
+                </td>
+            </tr>
+            <tr class="table_row">
+                <td class="table_column">
+                    <input type="button" class="time_value_container" value="12:55     01:40">
+                </td>
+                <td class="table_column">
+                    <input type="button" class="subject_value_container" id="subject_value_5" value="">
+                </td>
+            </tr>
+            <tr class="table_row">
+                <td class="table_column">
+                    <input type="button" class="time_value_container" value="01:40     02:35">
+                </td>
+                <td class="table_column">
+                    <input type="button" class="subject_value_container" id="subject_value_6" value="">
+                </td>
+            </tr>
+            <tr class="table_row">
+                <td class="table_column">
+                    <input type="button" class="time_value_container" value="02:35     03:30">
+                </td>
+                <td class="table_column">
+                    <input type="button" class="subject_value_container" id="subject_value_7" value="">
+                </td>
+            </tr>
+            <tr class="table_row">
+                <td class="table_column">
+                    <input type="button" class="time_value_container" value="03:30     04:30">
+                </td>
+                <td class="table_column">
+                    <input type="button" class="subject_value_container" id="subject_value_8" value="">
+                </td>
+            </tr>
+        </table>
+        <input type="button" class="back-inside" id="backInside" value="Back">
+    </div>
+
+    <div id="details">
+        <input type="button" class="detailButtons" id="subject_timing" value="">
+        <input type="button" class="detailButtons" id="subject_subject" value="">
+        <input type="button" class="detailButtons" id="subject_teacher" value="">
+        <input type="button" class="back" id="details_back" value="Back">
+    </div>
+    <div id="warn">
+        <button id="warnTab">---</button>
+        <input type="button" id="backTab" value="Back">
+    </div>
+    <script type="text/javascript">
+        (function(){
+        'use strict';
+        window.addEventListener('load',() => {
+        const _home = document.querySelector('#home');
+        const _whole = document.querySelector('#whole');
+        const _today = document.querySelector('#today');
+        const _Details = document.querySelector('#details');
+        const _warn = document.querySelector('#warn');
+        let localH,deferInstall;
+        const data = [
+            [ 6  , 5  , 13 , 8  , 1  , 0  , 10 , 7  , 7  ],
+            [ 11 , 11 , 13 , 2  , 2  , 0  , 5  , 8  , 3  ],
+            [ 6  , 10 , 13 , 1  , 5  , 0  , 3  , 9  , 9  ],
+            [ 5  , 8  , 13 , 1  , 10 , 0  , 6  , 4  , 4  ],
+            [ 3  , 1  , 13 , 6  , 3  , 0  , 10 , 8  , 12 ]
+        ];
+        const subject = 
+        [
+            ['Break','Break'],
+            ['DCN','Dr. vijay Dhir'],
+            ['DCN LAB','Er. Gurjeet Kaur'],
+            ['DDM','Er. Jagdeep Kaur'],
+            ['DDM LAB','Er. Jagdeep Kaur'],
+            ['Maths','Er. Gurpreet Singh'],
+            ['MP','Er. Harpreet Kaur'],
+            ['NSS','---'],
+            ['OOPS','Er. Harpreet Kaur'],
+            ['OOPS LAB','Er. Harpreet Kaur'],
+            ['OS','Er. Gurjeet Kaur'],
+            ['OS LAB','Er. Gurjeet Kaur'],
+            ['LIB','---'],
+            ['short Break','short Break']
+        ];
+
+        document.onclick = home_exec;
+        function home_exec(e) {
+            switch(e.target.id) {
+                case 'pressWhole': {
+                    _whole.style.display = 'block';
+                    document.onclick = whole_exec;
+                }
+                break;
+                case 'pressToday': {
+                    let date = new Date;
+                    today_data_process(date.getDay());
+                    
+                }
+                break;
+                case 'pressDetails': {
+                    let date = new Date;
+                    details_data_process(date.getDay(),date.getHours(),date.getMinutes());
+                }
+            }
+            _home.style.display = 'none';
+        }
+
+
+        function whole_exec(e)
+        {
+            let num = 1,
+                func = today_exec,
+                back_toggle = false,
+                __block__ = '#today';
+            switch(e.target.id) {
+                case 'mon' :
+                    num = 1;
+                break;
+                case 'tue' :
+                    num = 2;
+                break;
+                case 'wed' :
+                    num = 3;
+                break;
+                case 'thu' :
+                    num = 4;
+                break;
+                case 'fri' :
+                    num = 5;
+                break;
+                case 'back' :
+                    __block__ = '#home';
+                    func = home_exec;
+                    back_toggle = true;
+                break;
+            }
+            if(back_toggle === false) {
+                today_data_process(num);
+            }
+            _whole.style.display = 'none';
+            document.querySelector(__block__).style.display = 'block';
+            document.onclick = func;
+        }
+
+
+        function today_exec(e)
+        {
+            switch(e.target.id) {
+                case 'backInside': 
+                    console.log('today executed');
+                    _today.style.display = 'none';
+                    _home.style.display = 'block';
+                    document.onclick = home_exec;
+                break;
+            }
+        }
+
+
+        function details_exec(e)
+        {
+            switch(e.target.id) {
+                case 'details_back': 
+                    _home.style.display = 'block';
+                    _Details.style.display = 'none';
+                    document.onclick = home_exec;
+            }
+        }
+
+        function warn_exec(e)
+        {
+            switch(e.target.id)
+            {
+                case 'backTab':
+                    _warn.style.display = 'none';
+                    _home.style.display = 'block';
+                    document.onclick =  localH;
+                break;
+            }
+        }
+
+        function today_data_process(num)
+        {
+            num = (parseInt(num,10) - 1);
+            if(num > -1 && num < 5)
+            {
+                let temp = data[num],
+                    id,j = 0;
+                for(let i of temp) {
+                id = `subject_value_${j++}`;
+                document.querySelector(`#${id}`).value = subject[i][0];
+                }
+                _today.style.display = 'block';
+                document.onclick = today_exec;
+            }
+            else warning(num);
+        }
+
+        function details_data_process(day,hours,minutes)
+        {
+            day = parseInt(day,10) - 1;
+            hours = parseInt(hours,10) % 12;
+            if(hours === 0) hours = 12;
+            minutes = parseInt(minutes,10);
+            let period = period_Index(hours,minutes);
+            if(period !== -1 && period instanceof Array)
+            {
+                if(day > -1 && day < 5)
+                {
+                    let pt = subject[data[day][period[0]]];
+                    if(hours < 10) { hours = `0${hours}` }
+                    if(minutes < 10) { minutes = `0${minutes}` }
+                    document.querySelector('#subject_timing').value = `${period[1]}   ${hours}:${minutes}   ${period[2]}`;
+                    document.querySelector('#subject_subject').value = pt[0];
+                    document.querySelector('#subject_teacher').value = pt[1];
+                    _Details.style.display = 'block';
+                    document.onclick = details_exec;
+                }
+                else warning(day);
+            }
+            else
+            {
+                warning(2);
+            }
+            
+        }
+
+        function period_Index(hours,minutes) {
+            if((hours === 9 && (minutes >= 0 && minutes <= 59)) || (hours === 10 && minutes === 0))
+            {
+                return [0,'09:00', '10:00'];
+            }
+            else if(hours === 10 && (minutes > 0 && minutes <= 55))
+            {
+                return [1,'10:00','10:55'];
+            }
+            else if((hours === 10 && (minutes > 55 && minutes <= 59)) || (hours === 11 && (minutes > 0 && minutes <= 5)))
+            {
+                return [2,'10:55','11:05'];
+            }
+            else if((hours === 11 && (minutes > 5 && minutes <= 59)) || (hours === 12 && minutes === 0))
+            {
+                return [3,'11:05','12:00'];
+            }
+            else if(hours === 12 && (minutes > 0 && minutes <= 55))
+            {
+                return [4,'12:00','12:55'];
+            }
+            else if((hours === 12 && (minutes > 55 && minutes <= 59)) || (hours === 1 && (minutes > 0 && minutes <= 40)))
+            {
+                return [5,'12:55','01:40'];
+            }
+            else if((hours === 1 && (minutes > 40 && minutes <= 59)) || (hours === 2 && (minutes > 0 && minutes <= 35)))
+            {
+                return [6,'01:40','02:35'];
+            }
+            else if((hours === 2 && (minutes > 35 && minutes <= 59)) || (hours === 3 && (minutes > 0 && minutes <= 30)))
+            {
+                return [7,'02:35','03:30'];
+            }
+            else if((hours === 3 && (minutes > 30 && minutes <= 59)) || (hours === 4 && (minutes > 0 && minutes <= 30)))
+            {
+                return [8,'03:30','04:30'];
+            }
+            else {
+                return -1;
+            }
+        }
+
+        function warning(code)
+        {
+            let message;
+            switch(code) {
+                case -1:
+                    message = '<h3>Sunday</h3><br><h2>it\'s</h2><br><h1>Holiday</h1>';
+                break;
+                case 5:
+                    message = '<h3>Saturday</h3><br><h2>it\'s</h2><br><h1>Holiday</h1>';
+                break;
+                case 2:
+                    message = '<h1>Schedule<br>Time<br><b>Overflow<b><h1>';
+            }
+            document.querySelector('#warnTab').innerHTML = message;
+            _warn.style.display = 'block';
+            localH = document.onclick;
+            document.onclick = warn_exec;
+        }
+        if('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('../sw.js');
+        }
+
+        window.addEventListener('beforeinstallprompt',e=>{
+            e.preventDefault();
+            console.log(deferInstall);
+            deferInstall = e;
+            showAddToHomescreen();
+        });
+        function showAddToHomescreen() {
+            const installButton = document.querySelector('#install');
+            installButton.style.display = 'block';
+            installButton.addEventListener('click',addToHomeScreen);
+        }
+        function addToHomeScreen() {
+            document.querySelector('#install').style.display = 'none';
+            deferInstall.prompt();
+            deferInstall.userChoise
+                .then(result=>{
+                    if(result.outcome === 'accepted') {
+                        console.log('user accepted to install');
+                    } else {
+                        console.log('user rejected to install')
+                    }
+                    deferInstall = null;
+                });
+        }
+        });
+
+    })();
+    </script>
+</body>
+</html>
