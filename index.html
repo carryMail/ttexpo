@@ -485,7 +485,7 @@
             document.onclick = warn_exec;
         }
         if('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./ttexpo/sw.js',{scope: './ttexpo/'});
+            navigator.serviceWorker.register('/ttexpo/sw.js',{scope: '/ttexpo/'});
         }
 
         window.addEventListener('beforeinstallprompt',e=>{
