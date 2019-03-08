@@ -1,4 +1,4 @@
-let cacheName = 'Time Table';
+let cacheName = 'TimeTable';
 let cacheAssets = [
     './ttexpo/',
     './ttexpo/images/icons/icon-72x72.png',
@@ -18,7 +18,7 @@ self.addEventListener('install',e=>{
     e.waitUntil(
         caches.open(cacheName)
         .then(cache=>{
-           cache.addAll(cacheAssets);
+           return cache.addAll(cacheAssets);
         })
         .then(()=>{self.skipWaiting()})
     );
