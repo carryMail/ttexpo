@@ -19,7 +19,7 @@ self.addEventListener('install',e=>{
         caches.open(cacheName)
         .then(cache=>{
            return cache.addAll(cacheAssets);
-        })
+        },err=>console.log(err))
         .then(()=>{self.skipWaiting()})
     );
 });
