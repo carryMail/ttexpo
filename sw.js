@@ -19,7 +19,7 @@ self.addEventListener('install',e=>{
         caches.open(cacheName)
         .then(cache=>{
            return cache.addAll(cacheAssets);
-        },err=>console.log(err))
+        },err=>console.log('caching error found ',err))
         .then(()=>{self.skipWaiting()})
     );
 });
@@ -44,8 +44,7 @@ self.addEventListener('activate',e=>{
 self.addEventListener('fetch',function(e){
     e.respondWith(
         caches.match(e.request).then(function(response){
-            if(response) return response;
-            else return fetch(e.request);
+            return response || fetch(e.request)
         })
     );
 });
