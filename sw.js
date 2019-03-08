@@ -18,7 +18,7 @@ self.addEventListener('install',e=>{
     e.waitUntil(
         caches.open(cacheName)
         .then(cache=>{
-           return cache.addAll(cacheAssets);
+           cache.addAll(cacheAssets);
         },err=>console.log('caching error found ',err))
         .then(()=>{self.skipWaiting()})
     );
